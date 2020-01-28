@@ -1,0 +1,22 @@
+{
+    "questions": [
+        {
+            "id" : "ques-1",
+            "ques" : "What is your name?",
+            "type" : "textbox"
+        },
+        {
+            "id" : "ques-2",
+            "ques" : "What is your age?",
+            "type" : "textbox"
+        },
+        {
+            "id" : "ques-3",
+            "ques" : "What is your role?",
+            "type" : "multiple-choice"
+        }
+    ],
+    "question_dropped": [
+        
+    ]
+}
