@@ -80,7 +80,7 @@ class App extends Component {
                                   >
                                     {`${item.id}.   ${item.content} `}
                                     <br/>
-                                    {`A${index+1}.   ${item.ans}`}
+                                    {`A.   ${item.ans}`}
                                   </div>
                                 );
                               }}
@@ -124,7 +124,7 @@ class App extends Component {
                                   >
                                      {`${item.id}.   ${item.content} `}
                                     <br/>
-                                    {`A${index+1}.   ${item.ans}`}
+                                    {`A.   ${item.ans}`}
                                   </div>
                                 );
                               }}
