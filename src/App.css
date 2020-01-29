@@ -7,6 +7,18 @@
   font-weight: bold;
 }
 
+@media (max-width: 750px) {
+  .App {
+      display: block;
+  }
+  .draggable-questions-list{
+    width: 90% !important;
+  }
+  .dropable-questions-list{
+    width: 90% !important;
+  }
+}
+
 .draggable-questions-list{
   width: 45%;
   height: 80%;
