@@ -24,7 +24,8 @@
   height: 80%;
   margin: 20px;
   background-color: white;
-  border-radius: 2px;
+  border-radius: 4px;
+  overflow:scroll;
 }
 
 .dropable-questions-list{
@@ -32,12 +33,20 @@
   height: 80%;
   margin: 20px;
   background-color: white;
-  border-radius: 2px;
+  border-radius: 4px;
+  overflow:scroll;
 }
 
 .draggablelist{
+  height: 100%;
   padding: 5px;
   margin: 5px;
   border: 1px solid lightblue;
   border-radius: 2px;
+}
+
+.dropable-textarea{
+  width: 80%;
+  height: 80%;
+  margin: 20px;
 }

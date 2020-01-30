@@ -9,37 +9,42 @@ class App extends Component {
     super(props);
     this.state = {
       itemsFromBackend: [
-        { id: 'Q1', content: "How long is the lease term?", ans: '24 Months'},
+        { id: 'Q1', content: "How long is the lease term?", ans: '24 Months' },
         { id: 'Q2', content: "Are utilities included?", ans: 'Yes' },
         { id: 'Q3', content: "Are pets allowed?", ans: 'No' },
-        { id: 'Q4', content: "When is rent due and how do I pay it?", ans: '12th of every month'},
+        { id: 'Q4', content: "When is rent due and how do I pay it?", ans: '12th of every month' },
         { id: 'Q5', content: "Is the security deposit refundable", ans: 'Partial' }
       ],
-      itemsDropped: [
-
-      ]
+      textArea: `Client Name : \nClient Company : \nAddress : `,
+      position: 0
     }
   }
 
   onDragEnd = (result) => {
     const { source, destination } = result;
     console.log(destination);
-    if(destination && destination.droppableId === 'itemsDropped'){
+    if (destination && destination.droppableId === 'itemsDropped') {
       if (source.droppableId !== destination.droppableId) {
         const source_col = source.droppableId;
-        const dest_col = destination.droppableId;
         const source_items = this.state[source_col];
-        const dest_items = this.state[dest_col];
         const [removed] = source_items.splice(source.index, 1);
-        dest_items.splice(destination.index, 0, removed);
+        removed.id =  `<<`.concat(removed.id.concat(`>>`));
+        const updatedInfo = this.state.textArea.slice(0, this.state.position).concat(removed.id.concat(this.state.textArea.slice(this.state.position, this.state.textArea.length+1)))
         this.setState({
           itemsFromBackend: source_items,
-          itemsDropped: dest_items
+          textArea: updatedInfo
         })
       }
     }
   }
 
+  handleMouseEvent = evt => {
+    console.log(evt.target.selectionStart);
+    this.setState({
+      position: evt.target.selectionStart
+    })
+  }
+  
   render() {
     return (
       <div>
@@ -55,7 +60,7 @@ class App extends Component {
               className='draggable-questions-list'
             >
               <h2>Questionnaire</h2>
-              <div style={{ margin: 8 }}>
+              <div style={{ margin: 8 }} >
                 <Droppable droppableId={'itemsFromBackend'} key={'itemsFromBackend'}>
                   {(provided, snapshot) => {
                     return (
@@ -79,7 +84,7 @@ class App extends Component {
                                     className='draggablelist'
                                   >
                                     {`${item.id}.   ${item.content} `}
-                                    <br/>
+                                    <br />
                                     {`A.   ${item.ans}`}
                                   </div>
                                 );
@@ -99,44 +104,25 @@ class App extends Component {
               className='dropable-questions-list'
             >
               <h2>Drop Here</h2>
-              <div style={{ margin: 8 }}>
                 <Droppable droppableId={'itemsDropped'} key={'itemsDropped'}>
                   {(provided, snapshot) => {
                     return (
                       <div
                         {...provided.droppableProps}
                         ref={provided.innerRef}
+                        style={{height:'90%'}}
                       >
-                        {this.state.itemsDropped.map((item, index) => {
-                          return (
-                            <Draggable
-                              key={item.id}
-                              draggableId={item.id}
-                              index={index}
-                            >
-                              {(provided, snapshot) => {
-                                return (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    className='draggablelist'
-                                  >
-                                     {`${item.id}.   ${item.content} `}
-                                    <br/>
-                                    {`A.   ${item.ans}`}
-                                  </div>
-                                );
-                              }}
-                            </Draggable>
-                          );
-                        })}
+                        <textarea 
+                              className='dropable-textarea' 
+                              value={this.state.textArea}
+                              onMouseUp={this.handleMouseEvent}
+                        >
+                        </textarea>
                         {provided.placeholder}
                       </div>
                     );
                   }}
                 </Droppable>
-              </div>
             </div>
           </DragDropContext>
         </div>
